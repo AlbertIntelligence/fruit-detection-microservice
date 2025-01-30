@@ -2,6 +2,7 @@
 from flask import Blueprint, render_template, request, jsonify
 from app.services.rtsp_service import start_rtsp_video_scanning, stop_rtsp_video_scanning
 from app.utils.inference_status import InferenceStatus
+from app.models.main_models import FruitData  
 
 # Define the blueprint for the controller
 main_bp = Blueprint('main', __name__)
@@ -11,7 +12,8 @@ inference_status = InferenceStatus()
 
 @main_bp.route('/')
 def index():
-    return render_template('index.html')
+    logs = FruitData.query.all()
+    return render_template('index.html', logs=logs)
 
 @main_bp.route('/start', methods=['POST'])
 def start():

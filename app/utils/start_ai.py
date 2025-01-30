@@ -4,11 +4,15 @@ import numpy as np
 from PIL import Image
 from app.utils.ai_models.FruitVision import detectFruit
 from app.utils.inference_status import InferenceStatus
+import os
+script_directory = os.path.dirname(os.path.abspath(__file__))
+file_path = os.path.join(script_directory, "frame.jpg")
 
 inference_status = InferenceStatus()  # Singleton for inference status
 
 # Define a function to process the frame (e.g., convert to grayscale)
 def process_image(image):
+    # Check if image is an instance of PIL.Image
     if isinstance(image, Image.Image):
         # Convert PIL Image to numpy array (OpenCV-compatible format)
         image = np.array(image)
@@ -21,7 +25,9 @@ def process_image(image):
     else:
         print("Failed to decode frame!")
 
+
 def start_rtsp_ai(rtsp_url):
+    print("inside lop " +rtsp_url)
     try:
         # Start the inference process
         if inference_status.is_inference_running():
@@ -40,22 +46,14 @@ def start_rtsp_ai(rtsp_url):
                     # Convert the PIL Image to a NumPy array (if needed for further OpenCV processing)
                     if isinstance(_image, Image.Image):
                         _image = np.array(_image)
-
-                    # Save the frame as an image (if needed)
-                    cv2.imwrite("frame.jpg", _image)  # Save the frame as 'frame.jpg'
-
-                    # Detect fruit (or any inference you want to run)
-                    result = detectFruit()  # Call the inference function
-
-                    # Check if inference was successful (based on your inference result)
-                    if not result:
-                        raise Exception("Inference failed!")
-
-                    # If successful, return the result
-                    return result
+                    # Now you can save the frame as an image (if needed)
+                    cv2.imwrite(file_path, _image)  # Save the frame as 'frame.jpg'
+                    detectFruit()
                 else:
                     print("Error: No frame received!")
-                    raise Exception("Failed to retrieve frames from RTSP stream.")
+
+                # Optional: Read the next frame from the RTSP stream
+                _image = client.read(raw=True)
     except Exception as e:
         # Handle exceptions: update inference status and log error
         print(f"Error occurred: {str(e)}")
@@ -77,3 +75,7 @@ def stop_rtsp_ai():
     inference_status.stop_inference()
     # Any other cleanup necessary to halt the inference process
     print("Inference stopped.")
+
+
+
+    

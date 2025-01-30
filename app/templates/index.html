@@ -29,7 +29,13 @@
                     <td>{{ log.timestamp }}</td>
                     <td>{{ log.fruit_name }}</td>
                     <td>{{ log.confidence }}%</td>
-                    <td><img src="{{ log.image_url }}" alt="{{ log.fruit_name }}" class="image-preview"></td>
+                    <td>
+                        {% if log.image_preview %}
+                            <img src="{{ url_for('static', filename='images/' + log.image_preview) }}" alt="{{ log.fruit_name }}" class="image-preview">
+                        {% else %}
+                            No image available
+                        {% endif %}
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

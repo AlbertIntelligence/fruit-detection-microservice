@@ -5,6 +5,9 @@ import torchvision.transforms as transforms
 from transformers import AutoModelForImageClassification
 from PIL import Image
 from app.models.main_models import db, FruitData
+import os
+script_directory = os.path.dirname(os.path.abspath(__file__))
+file_path = os.path.join(script_directory, "../frame.jpg")
 
 
 def detectFruit():
@@ -22,7 +25,7 @@ def detectFruit():
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     ])
 
-    image_path = "1.jpg"
+    image_path = file_path
     image = cv2.imread(image_path)
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     pil_image = Image.fromarray(image)  # Convert NumPy array to PIL image
@@ -36,9 +39,9 @@ def detectFruit():
 
     # Get the predicted label text
     predicted_label = labels[predicted_idx]
-    add_fruit(predicted_label,"1","1")
+    #add_fruit(predicted_label,"1","1")
     # Print the predicted label
-    return ("Detected label:", predicted_label)
+    print("Detected label:", predicted_label)
 
 
 def add_fruit(fruit_name,confidence,image_preview):
