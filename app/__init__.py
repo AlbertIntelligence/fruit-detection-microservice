@@ -8,9 +8,13 @@ def create_app():
     app = Flask(__name__)
 
     # Database setup for PostgreSQL (when running in Docker)
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'postgresql://example_user:example_password@db:5432/fruitdb')
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'postgresql://example_user:example_password@localhost:5432/fruitdb')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
+
+     # Create tables if they don't exist
+    with app.app_context():
+        db.create_all()
 
     # Register the controller/blueprints
     app.register_blueprint(main_bp)

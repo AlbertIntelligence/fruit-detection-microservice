@@ -39,7 +39,7 @@ def detectFruit():
 
     # Get the predicted label text
     predicted_label = labels[predicted_idx]
-    #add_fruit(predicted_label,"1","1")
+    add_fruit(predicted_label,"1","1")
     # Print the predicted label
     print("Detected label:", predicted_label)
 
