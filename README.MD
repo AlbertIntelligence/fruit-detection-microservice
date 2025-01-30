@@ -1,4 +1,4 @@
-Fruit Detection Microservice
+Fruit Detection Microservice by Lenz Petion
 
 A simple Flask-based microservice that integrates RTSP camera support to identify the type of fruit detected by an AI vision model. This service processes real-time video feeds and uses a trained model to classify and log detected fruits with their confidence levels.
 Features

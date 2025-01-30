@@ -1,12 +1,22 @@
-# app/models.py
-class User:
-    def __init__(self, id, name, email):
-        self.id = id
-        self.name = name
-        self.email = email
+from datetime import datetime
+from flask_sqlalchemy import SQLAlchemy
 
-    # Example method to simulate retrieving a user by id (in real use, you might interact with a database)
-    @classmethod
-    def get_user_by_id(cls, user_id):
-        # This is just a placeholder logic. You would replace this with a real DB query.
-        return cls(user_id, "John Doe", "john@example.com")
+db = SQLAlchemy()
+
+class FruitData(db.Model):
+    __tablename__ = 'fruit_data'  # Table name in the database
+
+    # Define the columns for the table
+    id = db.Column(db.Integer, primary_key=True)  # Primary Key
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)  # Default to current timestamp
+    fruit_name = db.Column(db.String(255), nullable=False)  # Fruit Name
+    confidence = db.Column(db.Float, nullable=False)  # Confidence score (float value)
+    image_preview = db.Column(db.String(255))  # Store the image URL or path
+
+    def __init__(self, fruit_name, confidence, image_preview=None):
+        self.fruit_name = fruit_name
+        self.confidence = confidence
+        self.image_preview = image_preview
+
+    def __repr__(self):
+        return f'<FruitData {self.fruit_name}, Confidence {self.confidence}>'

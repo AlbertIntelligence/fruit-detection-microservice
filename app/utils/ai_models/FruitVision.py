@@ -1,8 +1,11 @@
+from flask import jsonify
 import cv2
 import torch
 import torchvision.transforms as transforms
 from transformers import AutoModelForImageClassification
 from PIL import Image
+from app.models.main_models import db, FruitData
+
 
 def detectFruit():
 
@@ -33,7 +36,22 @@ def detectFruit():
 
     # Get the predicted label text
     predicted_label = labels[predicted_idx]
-
+    add_fruit(predicted_label,"1","1")
     # Print the predicted label
-    print("Detected label:", predicted_label)
-detectFruit()
+    return ("Detected label:", predicted_label)
+
+
+def add_fruit(fruit_name,confidence,image_preview):
+    fruit_name = fruit_name
+    confidence = confidence
+    image_preview = image_preview  # Optional field
+
+    # Create a new FruitData instance
+    new_fruit_data = FruitData(fruit_name=fruit_name, confidence=confidence, image_preview=image_preview)
+
+    # Add to the database session and commit
+    db.session.add(new_fruit_data)
+    db.session.commit()
+
+    return jsonify({"message": "Fruit data added successfully!"}), 201
+
