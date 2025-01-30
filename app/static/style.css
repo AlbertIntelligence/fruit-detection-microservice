@@ -1,0 +1,75 @@
+/* app/static/style.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #4CAF50;
+    font-size: 36px;
+}
+
+p {
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+}
+
+.log-table {
+    width: 100%;
+    margin-top: 30px;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+}
+
+.log-table th, .log-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.log-table th {
+    background-color: #4CAF50;
+    color: #fff;
+    font-size: 18px;
+}
+
+.log-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.log-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.log-table td img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+/* Add responsive design for small screens */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+
+    .log-table th, .log-table td {
+        font-size: 14px;
+        padding: 8px;
+    }
+}

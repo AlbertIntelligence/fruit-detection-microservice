@@ -1,0 +1,39 @@
+<!-- app/templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fruit Detection Log</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Fruit Detection Log</h1>
+
+        <p>Welcome, {{ user.name }}! Here's the log of fruits detected by your AI model:</p>
+
+        <!-- Table for showing fruit detection log -->
+        <table class="log-table">
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Fruit Name</th>
+                    <th>Confidence</th>
+                    <th>Image Preview</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr>
+                    <td>{{ log.timestamp }}</td>
+                    <td>{{ log.fruit_name }}</td>
+                    <td>{{ log.confidence }}%</td>
+                    <td><img src="{{ log.image_url }}" alt="{{ log.fruit_name }}" class="image-preview"></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
