@@ -31,7 +31,8 @@
                     <td>{{ log.confidence }}%</td>
                     <td>
                         {% if log.image_preview %}
-                            <img src="{{ url_for('static', filename='images/' + log.image_preview) }}" alt="{{ log.fruit_name }}" class="image-preview">
+                            <!-- Render the base64 image directly -->
+                            <img src="data:image/png;base64,{{ log.image_preview }}" alt="{{ log.fruit_name }}" class="image-preview">
                         {% else %}
                             No image available
                         {% endif %}

@@ -42,7 +42,8 @@ def start_rtsp_ai(rtsp_url):
                 if _image is not None:
                     # Process the frame (e.g., convert to grayscale, or other processing)
                     process_image(_image)
-
+                    # Convert the image to a base64 string
+                    
                     # Convert the PIL Image to a NumPy array (if needed for further OpenCV processing)
                     if isinstance(_image, Image.Image):
                         _image = np.array(_image)
@@ -78,4 +79,12 @@ def stop_rtsp_ai():
 
 
 
-    
+def image_to_base64(image):
+    """Convert a NumPy image array to a base64 string."""
+    # Convert the image to PNG format in memory
+    _, buffer = cv2.imencode('.png', image)
+    # Convert the buffer to bytes
+    image_bytes = buffer.tobytes()
+    # Encode bytes to base64
+    image_base64 = base64.b64encode(image_bytes).decode('utf-8')
+    return image_base64
